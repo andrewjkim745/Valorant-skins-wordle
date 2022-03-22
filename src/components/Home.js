@@ -21,10 +21,12 @@ export default function Home() {
         <Dropdown/>
         <Button
         toggle={'toggle'}
+        color='danger'
         onClick={()=> setSkinInfo(!skinInfo)}
         text={`Skin info ${skinInfo ? 'on' : 'off'}`}
         />
         <Button
+        color='warning'
         onClick={()=> setShowHint(!hint)}
         text={`Show hint ${hint ? 'off' : 'on'}`}
         />
