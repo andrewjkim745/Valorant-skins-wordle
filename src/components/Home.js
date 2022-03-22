@@ -9,7 +9,7 @@ export default function Home() {
 
     return (
         <div className='bg-dark'>
-        Valordle!
+        <h1>Valordle!</h1>
         </div>
     )
 
