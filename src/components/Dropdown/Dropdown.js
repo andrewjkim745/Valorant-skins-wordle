@@ -5,7 +5,7 @@ import { MDBDropdown, MDBDropdownMenu, MDBDropdownToggle, MDBDropdownItem, MDBDr
 export default function Dropdown() {
   return (
     <MDBDropdown className='m-4'>
-      <MDBDropdownToggle color='dark'>rarity</MDBDropdownToggle>
+      <MDBDropdownToggle color='dark'>Rarity</MDBDropdownToggle>
       <MDBDropdownMenu>
         <MDBDropdownItem>
           <MDBDropdownLink href="#">Legendary</MDBDropdownLink>
