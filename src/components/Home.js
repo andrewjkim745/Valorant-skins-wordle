@@ -10,6 +10,13 @@ export default function Home() {
     const [skinInfo, setSkinInfo] = useState(true)
     const [hint, setShowHint] = useState(true)
 
+    const images = importAll(require.context('../assets/SkinImages', false, /\.(png|jpe?g|svg)$/));
+
+    function importAll(r) {
+        let images = {};
+        r.keys().map((item, index) => { images[item.replace('./', '')] = r(item); });
+        return images;
+    }
 
     return (
         <div className='w-100 vh-100 bg-dark'>
