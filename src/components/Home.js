@@ -9,6 +9,7 @@ export default function Home() {
     const [inputValue, setInputValue] = useState('')
     const [skinInfo, setSkinInfo] = useState(true)
     const [hint, setShowHint] = useState(true)
+    const [word, setWord ] = useState('')
 
     const images = importAll(require.context('../assets/SkinImages', false, /\.(png|jpe?g|svg)$/));
 
