@@ -18,6 +18,10 @@ export default function Home() {
         return images;
     }
 
+    useEffect(() => {
+        console.log(images)
+    })
+
     return (
         <div className='w-100 vh-100 bg-dark'>
             <h1 className='text-white text-center'>Valordle!</h1>
