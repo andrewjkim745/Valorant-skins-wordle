@@ -9,7 +9,7 @@ export default function Home() {
     const [inputValue, setInputValue] = useState('')
     const [skinInfo, setSkinInfo] = useState(true)
     const [hint, setShowHint] = useState(true)
-    const [word, setWord ] = useState('')
+    const [skin, setSkin ] = useState('')
 
     const images = importAll(require.context('../assets/SkinImages', false, /\.(png|jpe?g|svg)$/));
 
@@ -20,7 +20,7 @@ export default function Home() {
     }
 
     useEffect(() => {
-        console.log(images)
+        console.log('image array from folder', images)
     })
 
     return (
@@ -41,6 +41,11 @@ export default function Home() {
                     color='warning'
                     onClick={() => setShowHint(!hint)}
                     text={`Show hint ${hint ? 'off' : 'on'}`}
+                />
+                <Button
+                onClick={()=> submitGuess(input)}
+                color='primary'
+                text='submit'
                 />
             </div>
         </div>
