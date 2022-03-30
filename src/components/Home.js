@@ -11,6 +11,28 @@ export default function Home() {
     const [hint, setShowHint] = useState(true)
     const [skin, setSkin ] = useState('')
 
+    function onTextChange(e) {
+        const value = e.target.value
+        
+        if (value.length > 0) {
+            const regex = new RegExp(`^${inputValue}`, `i`);
+            let i = 0
+            let suggestions = []
+
+            while (i < projectArray.length - 1)  {
+                    let match = Object.keys(images[i].filter(v=> regex.test(v)))
+                    
+                    match.forEach(skin => {
+                        (suggestions.includes(skin) ? console.log('already included') : suggestions.push(skin))
+                    })
+                    i++
+            }
+            
+            setSuggestions(suggestions)
+        }
+        setText(value)
+    }
+
     const images = importAll(require.context('../assets/SkinImages', false, /\.(png|jpe?g|svg)$/));
 
     function importAll(r) {
