@@ -20,7 +20,7 @@ export default function Home() {
     }
 
     useEffect(() => {
-        console.log('image array from folder', images)
+        console.log('image array from folder', Object.keys(images))
     })
 
     const submitGuess = () => {
