@@ -23,6 +23,10 @@ export default function Home() {
         console.log('image array from folder', images)
     })
 
+    const submitGuess = () => {
+        console.log('clicked')
+    }
+
     return (
         <div className='w-100 vh-100 bg-dark'>
             <h1 className='text-white text-center'>Valordle!</h1>
@@ -43,7 +47,7 @@ export default function Home() {
                     text={`Show hint ${hint ? 'off' : 'on'}`}
                 />
                 <Button
-                onClick={()=> submitGuess(input)}
+                onClick={()=> submitGuess(inputValue)}
                 color='primary'
                 text='submit'
                 />
