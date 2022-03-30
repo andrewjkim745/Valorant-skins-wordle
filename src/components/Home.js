@@ -21,6 +21,7 @@ export default function Home() {
 
     useEffect(() => {
         console.log('image array from folder', Object.keys(images))
+        console.log('image array with srcs from folder', Object.values(images))
     })
 
     const submitGuess = () => {
