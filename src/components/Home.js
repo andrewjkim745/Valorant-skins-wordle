@@ -6,31 +6,37 @@ import Button from './Button/Button';
 
 export default function Home() {
 
-    const [inputValue, setInputValue] = useState('')
+    const [value, setInputValue] = useState('')
+    const [text, setText] = useState('')
     const [skinInfo, setSkinInfo] = useState(true)
     const [hint, setShowHint] = useState(true)
     const [skin, setSkin ] = useState('')
+    const [suggestions, setSuggestions ] = useState('')
 
     function onTextChange(e) {
         const value = e.target.value
         
         if (value.length > 0) {
-            const regex = new RegExp(`^${inputValue}`, `i`);
-            let i = 0
+            const regex = new RegExp(`^${value}`, `i`);
+            
+            let length = Object.keys(images).length
+            let nameArray = Object.keys(images)
+            let imageArray = Object.values(images)
             let suggestions = []
 
-            while (i < Object.keys(images).length - 1)  {
-                    let match = Object.keys(images[i].filter(v=> regex.test(v)))
+            for (let i =0 ; i < nameArray.length; i++)  {
+                    let match = nameArray.filter(v=> regex.test(v))
+                    
                     
                     match.forEach(skin => {
-                        (suggestions.includes(skin) ? console.log('already included') : suggestions.push(skin))
+                        if (!suggestions.includes(skin)) suggestions.push(skin)
                     })
-                    i++
             }
+            
             
             setSuggestions(suggestions)
         }
-        setText(value)
+        setInputValue(value)
     }
 
     const images = importAll(require.context('../assets/SkinImages', false, /\.(png|jpe?g|svg)$/));
@@ -41,9 +47,26 @@ export default function Home() {
         return images;
     }
 
+    const renderSuggestions = () => {
+        if (suggestions.length === 0) {
+            return null
+    }
+    return (
+        <ul style={{ height: '100px' , overflow: 'scroll' }}>
+            {suggestions.map(tech => {
+                return (
+                <li>
+                    {tech}
+                </li>
+                )
+                
+            })}
+        </ul>
+    )
+    }
+
     useEffect(() => {
-        console.log('image array from folder', Object.keys(images))
-        console.log('image array with srcs from folder', Object.values(images))
+
     })
 
     const submitGuess = () => {
@@ -56,7 +79,8 @@ export default function Home() {
             <h2 className='text-white text-center'>A Valorant Skins Wordle Game by <a href='https://github.com/andrewjkim745'>andrewjkim745</a></h2>
             <p className='text-white text-center'>Updates at 00:00 GMT-10</p>
             <div className='w-100 d-flex flex-column justify-content-center align-items-center'>
-                <MDBInput onChange={(e) => onTextChange(e.target.value)} value={inputValue} label='Weapon Name' id='form1' type='text' contrast />
+                <MDBInput onChange={onTextChange} value={value} label='Weapon Name' id='form1' type='text' contrast />
+                {renderSuggestions()}
                 <Dropdown />
                 <Button
                     toggle={'toggle'}
@@ -70,7 +94,7 @@ export default function Home() {
                     text={`Show hint ${hint ? 'off' : 'on'}`}
                 />
                 <Button
-                onClick={()=> submitGuess(inputValue)}
+                onClick={()=> submitGuess(value)}
                 color='primary'
                 text='submit'
                 />
