@@ -19,7 +19,7 @@ export default function Home() {
             let i = 0
             let suggestions = []
 
-            while (i < projectArray.length - 1)  {
+            while (i < Object.keys(images).length - 1)  {
                     let match = Object.keys(images[i].filter(v=> regex.test(v)))
                     
                     match.forEach(skin => {
