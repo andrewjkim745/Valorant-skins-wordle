@@ -56,7 +56,7 @@ export default function Home() {
             <h2 className='text-white text-center'>A Valorant Skins Wordle Game by <a href='https://github.com/andrewjkim745'>andrewjkim745</a></h2>
             <p className='text-white text-center'>Updates at 00:00 GMT-10</p>
             <div className='w-100 d-flex flex-column justify-content-center align-items-center'>
-                <MDBInput onChange={(e) => setInputValue(e.target.value)} value={inputValue} label='Weapon Name' id='form1' type='text' contrast />
+                <MDBInput onChange={(e) => onTextChange(e.target.value)} value={inputValue} label='Weapon Name' id='form1' type='text' contrast />
                 <Dropdown />
                 <Button
                     toggle={'toggle'}
