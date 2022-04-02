@@ -20,23 +20,24 @@ export default function Home() {
             const regex = new RegExp(`^${value}`, `i`);
             
             let array = []
-            let length = Object.keys(images).length
             let nameArray = Object.keys(images)
-            let imageArray = Object.values(images)
             let suggestions = []
             console.log('images object', images)
             let match = nameArray.filter(v => regex.test(v))
             console.log(match)
             for ( let i = 0; i < match.length; i++) {
+                let prices = ['1750', '3350', '5350']
+                let result1 = match[i].replace(/_|.png/g, ' ').slice(0,-1)
                 let obj = {}
-                obj.name = match[i]
+                obj.name = result1
                 obj.src = images[match[i]]
+                obj.price = prices[Math.floor(Math.random() * prices.length)];
                 array.push(obj)
             }
 
             console.log(array)
   
-            setSuggestions(suggestions)
+            setSuggestions(array)
         }
         setInputValue(value)
     }
@@ -54,11 +55,11 @@ export default function Home() {
             return null
     }
     return (
-        <ul style={{ height: '100px' , overflow: 'scroll' }}>
+        <ul style={{ height: '100px' , overflow: 'scroll', background: 'white' }}>
             {suggestions.map(tech => {
                 return (
-                <li>
-                    {tech}
+                <li style={{ listStyle: 'none'}}>
+                    {tech.name}
                 </li>
                 )
                 
@@ -68,6 +69,11 @@ export default function Home() {
     }
 
     useEffect(() => {
+
+        const str = 'Aero_Frenzy.png'
+        const result1 = str.replaceAll('_', ' ')
+        const result2 = result1.replaceAll('.png', '')
+        console.log(result2)
 
     })
 
