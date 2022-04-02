@@ -59,6 +59,7 @@ export default function Home() {
             {suggestions.map(tech => {
                 return (
                 <li style={{ listStyle: 'none'}}>
+                    <img style={{maxWidth: 50 }}src={tech.src}/>
                     {tech.name}
                 </li>
                 )
