@@ -19,21 +19,23 @@ export default function Home() {
         if (value.length > 0) {
             const regex = new RegExp(`^${value}`, `i`);
             
+            let array = []
             let length = Object.keys(images).length
             let nameArray = Object.keys(images)
             let imageArray = Object.values(images)
             let suggestions = []
-
-            for (let i =0 ; i < nameArray.length; i++)  {
-                    let match = nameArray.filter(v=> regex.test(v))
-                    
-                    
-                    match.forEach(skin => {
-                        if (!suggestions.includes(skin)) suggestions.push(skin)
-                    })
+            console.log('images object', images)
+            let match = nameArray.filter(v => regex.test(v))
+            console.log(match)
+            for ( let i = 0; i < match.length; i++) {
+                let obj = {}
+                obj.name = match[i]
+                obj.src = images[match[i]]
+                array.push(obj)
             }
-            
-            
+
+            console.log(array)
+  
             setSuggestions(suggestions)
         }
         setInputValue(value)
