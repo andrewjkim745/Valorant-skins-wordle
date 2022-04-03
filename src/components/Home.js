@@ -78,11 +78,11 @@ export default function Home() {
     }
 
     useEffect(() => {
-        const setDailyAnswer = () => {
             let nameArray = Object.keys(images)
-            setAnswer(nameArray[Math.floor(Math.random() * nameArray.length)])
-        }
-    })
+            let daily = nameArray[Math.floor(Math.random() * nameArray.length)].replace(/_|.png/g, ' ').slice(0,-1)
+            console.log('daily answer', daily)
+            setAnswer(daily)
+    }, [])
 
     const submitGuess = () => {
         console.log('clicked')
@@ -115,6 +115,7 @@ export default function Home() {
                 color='primary'
                 text='submit'
                 />
+                {correct ? <h1>You got it correct!</h1> : correct === false ? <h1>Click to show hint</h1> : null}
             </div>
         </div>
     )
