@@ -7,11 +7,11 @@ import Button from './Button/Button';
 export default function Home() {
 
     const [value, setInputValue] = useState('')
-    const [text, setText] = useState('')
+    const [answer, setAnswer] = useState('')
     const [skinInfo, setSkinInfo] = useState(true)
     const [hint, setShowHint] = useState(true)
-    const [skin, setSkin ] = useState('')
     const [suggestions, setSuggestions ] = useState('')
+    const [correct, setCorrect] = useState('')
 
     function onTextChange(e) {
         const value = e.target.value
@@ -21,7 +21,6 @@ export default function Home() {
             
             let array = []
             let nameArray = Object.keys(images)
-            let suggestions = []
             console.log('images object', images)
             let match = nameArray.filter(v => regex.test(v))
             console.log(match)
@@ -42,6 +41,11 @@ export default function Home() {
         setInputValue(value)
     }
 
+    const clickSuggestion = (tech) => {
+        setInputValue(tech)
+        setSuggestions([])
+    }
+
     const images = importAll(require.context('../assets/SkinImages', false, /\.(png|jpe?g|svg)$/));
 
     function importAll(r) {
@@ -58,28 +62,32 @@ export default function Home() {
         <ul style={{ height: '100px' , overflow: 'scroll', background: 'white' }}>
             {suggestions.map(tech => {
                 return (
-                <li style={{ listStyle: 'none'}}>
+                <li onClick={()=> clickSuggestion(tech.name)} style={{ listStyle: 'none'}}>
                     <img style={{maxWidth: 50 }}src={tech.src}/>
                     {tech.name}
                 </li>
                 )
-                
             })}
         </ul>
     )
     }
 
+    const setDailyAnswer = () => {
+        let nameArray = Object.keys(images)
+        setAnswer(nameArray[Math.floor(Math.random() * nameArray.length)])
+    }
+
     useEffect(() => {
-
-        const str = 'Aero_Frenzy.png'
-        const result1 = str.replaceAll('_', ' ')
-        const result2 = result1.replaceAll('.png', '')
-        console.log(result2)
-
+        const setDailyAnswer = () => {
+            let nameArray = Object.keys(images)
+            setAnswer(nameArray[Math.floor(Math.random() * nameArray.length)])
+        }
     })
 
     const submitGuess = () => {
         console.log('clicked')
+        (answer == value ? setCorrect(true) : setCorrect(false))
+
     }
 
     return (
