@@ -9,7 +9,7 @@ export default function Home() {
     const [value, setInputValue] = useState('')
     const [answer, setAnswer] = useState('')
     const [skinInfo, setSkinInfo] = useState(true)
-    const [hint, setShowHint] = useState(true)
+    const [hint, setShowHint] = useState(false)
     const [suggestions, setSuggestions ] = useState('')
     const [correct, setCorrect] = useState('')
 
@@ -72,6 +72,33 @@ export default function Home() {
     )
     }
 
+    const renderHint = () => {
+        if (!hint) {
+            return null
+        }
+        let slicedAnswer = answer.split(' ')
+        let array = []
+        console.log(slicedAnswer)
+        slicedAnswer.forEach(word => {
+            console.log('word', word)
+            let randomIndex = Math.floor(Math.random() * word.length)
+            let randomEnd = Math.floor(Math.random() * word.length) === randomIndex ? randomIndex + 1 : randomIndex + 1 > word.length - 1 ? randomIndex-1 : randomIndex+1
+            let slicedWord = randomIndex > randomEnd ? word.slice(randomEnd, randomIndex) : word.slice(randomIndex, randomEnd)
+            array.push(slicedWord)
+        })
+
+        return (
+            <div>
+            <p className='text-white'>Skin has {array.length} words</p>
+            {array.map((letter, index) => {
+                return (
+                    <p className='text-white'>Word {index+1} has the letter {letter} </p>
+                )
+            })}
+            </div>
+        )
+    }
+
     const setDailyAnswer = () => {
         let nameArray = Object.keys(images)
         setAnswer(nameArray[Math.floor(Math.random() * nameArray.length)].replace(/_|.png/g, ' ').slice(0,-1))
@@ -82,7 +109,6 @@ export default function Home() {
     }, [])
 
     const submitGuess = () => {
-        console.log('clicked')
         (answer == value ? setCorrect(true) : setCorrect(false))
 
     }
@@ -105,8 +131,9 @@ export default function Home() {
                 <Button
                     color='warning'
                     onClick={() => setShowHint(!hint)}
-                    text={`Show hint ${hint ? 'off' : 'on'}`}
+                    text={`Show hint ${hint ? 'on' : 'off'}`}
                 />
+                {renderHint()}
                 <Button
                 onClick={()=> submitGuess(value)}
                 color='primary'
