@@ -74,14 +74,11 @@ export default function Home() {
 
     const setDailyAnswer = () => {
         let nameArray = Object.keys(images)
-        setAnswer(nameArray[Math.floor(Math.random() * nameArray.length)])
+        setAnswer(nameArray[Math.floor(Math.random() * nameArray.length)].replace(/_|.png/g, ' ').slice(0,-1))
     }
 
     useEffect(() => {
-            let nameArray = Object.keys(images)
-            let daily = nameArray[Math.floor(Math.random() * nameArray.length)].replace(/_|.png/g, ' ').slice(0,-1)
-            console.log('daily answer', daily)
-            setAnswer(daily)
+            setDailyAnswer()
     }, [])
 
     const submitGuess = () => {
