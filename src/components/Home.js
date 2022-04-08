@@ -85,7 +85,6 @@ export default function Home() {
             let slicedWord = randomIndex > randomEnd ? word.slice(randomEnd, randomIndex) : word.slice(randomIndex, randomEnd)
             array.push(slicedWord)
         })
-
         return (
             <div>
             <p className='text-white'>Skin has {array.length} words in it</p>
