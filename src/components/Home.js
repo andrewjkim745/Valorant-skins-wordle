@@ -6,12 +6,13 @@ import Button from './Button/Button';
 
 export default function Home() {
 
-    const [value, setInputValue] = useState('')
-    const [answer, setAnswer] = useState('')
-    const [skinInfo, setSkinInfo] = useState(true)
-    const [hint, setShowHint] = useState(false)
-    const [suggestions, setSuggestions ] = useState('')
-    const [correct, setCorrect] = useState('')
+    const [ updated, setUpdated ] = useState(false)
+    const [ value, setInputValue ] = useState('')
+    const [ answer, setAnswer ] = useState('')
+    const [ skinInfo, setSkinInfo ] = useState(true)
+    const [ hint, setShowHint ] = useState(false)
+    const [ suggestions, setSuggestions ] = useState('')
+    const [ correct, setCorrect ] = useState('')
 
     function onTextChange(e) {
         const value = e.target.value
@@ -44,6 +45,7 @@ export default function Home() {
     const clickSuggestion = (tech) => {
         setInputValue(tech)
         setSuggestions([])
+        setUpdated(!updated)
     }
 
     const images = importAll(require.context('../assets/SkinImages', false, /\.(png|jpe?g|svg)$/));
@@ -73,8 +75,9 @@ export default function Home() {
     }
 
     const renderHint = () => {
-        if (!hint) {
+        if (!hint || correct) {
             return null
+            
         }
         let slicedAnswer = answer.split(' ')
         let array = []
@@ -89,7 +92,7 @@ export default function Home() {
 
         return (
             <div>
-            <p className='text-white'>Skin has {array.length} words</p>
+            <p className='text-white'>Skin has {array.length} words in it</p>
             {array.map((letter, index) => {
                 return (
                     <p className='text-white'>Word {index+1} has the letter {letter} </p>
@@ -106,7 +109,7 @@ export default function Home() {
 
     useEffect(() => {
             setDailyAnswer()
-    }, [])
+    }, [updated])
 
     const submitGuess = () => {
         (answer == value ? setCorrect(true) : setCorrect(false))
