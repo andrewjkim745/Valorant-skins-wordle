@@ -18,8 +18,7 @@ export default function Home() {
         const value = e.target.value
         
         if (value.length > 0) {
-            const regex = new RegExp(`^${value}`, `i`);
-            
+            const regex = new RegExp(`^${value}`, `i`);  
             let array = []
             let nameArray = Object.keys(images)
             console.log('images object', images)
@@ -34,9 +33,7 @@ export default function Home() {
                 obj.price = prices[Math.floor(Math.random() * prices.length)];
                 array.push(obj)
             }
-
             console.log(array)
-  
             setSuggestions(array)
         }
         setInputValue(value)
@@ -76,8 +73,7 @@ export default function Home() {
 
     const renderHint = () => {
         if (!hint || correct) {
-            return null
-            
+            return null 
         }
         let slicedAnswer = answer.split(' ')
         let array = []
@@ -113,7 +109,6 @@ export default function Home() {
 
     const submitGuess = () => {
         (answer == value ? setCorrect(true) : setCorrect(false))
-
     }
 
     return (
