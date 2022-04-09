@@ -11,6 +11,7 @@ export default function Home() {
     const [answer, setAnswer] = useState('')
     const [skinInfo, setSkinInfo] = useState(true)
     const [hint, setShowHint] = useState(false)
+    const [boxes, setBoxes] = useState('')
     const [suggestions, setSuggestions] = useState('')
     const [correct, setCorrect] = useState('')
 
@@ -72,16 +73,15 @@ export default function Home() {
     }
 
     const renderHint = () => {
-        if (!hint || correct) {
-            return null
-        }
+        // if (!hint || correct) {
+        //     return null
+        // }
+        if (boxes ) return null
         let slicedAnswer = answer.split(' ')
-        let array = []
         console.log(slicedAnswer)
         let hintArray = slicedAnswer.map(word => {
             console.log('word', word)
             console.log('word', word.length)
-
             let emptyArray = new Array(word.length).fill('')
             let randomIndex = Math.floor(Math.random() * word.length)
             let randomEnd = Math.floor(Math.random() * word.length) === randomIndex ? randomIndex + 1 : randomIndex + 1 > word.length - 1 ? randomIndex - 1 : randomIndex + 1
@@ -92,21 +92,7 @@ export default function Home() {
                 
         })
         console.log(hintArray)
-        return (
-            
-            <div>
-            <p className='text-white'>Skin has {hintArray.length} words in it</p>
-            <div class='d-flex'>
-            {hintArray.map(hint => {
-                return (
-                hint.map(letter => {
-                    return <div className='box'>{letter}</div>
-                })
-                )
-            })}
-            </div>
-            </div>
-        )
+        setBoxes(hintArray)
     }
 
     const setDailyAnswer = () => {
@@ -139,10 +125,21 @@ export default function Home() {
                 />
                 <Button
                     color='warning'
-                    onClick={() => setShowHint(!hint)}
+                    onClick={() => {setShowHint(!hint); renderHint();}}
                     text={`Show hint ${hint ? 'on' : 'off'}`}
                 />
-                {renderHint()}
+                {boxes && hint ?
+                boxes.map(box=> { 
+                    return (
+                        <div class='d-flex mb-4'>
+                            {box.map(letter => {
+                                return (
+                                    <div className='box'>{letter}</div>
+                                )
+                            })}
+                        </div>
+                    )     
+                    }) : null}
                 <Button
                     onClick={() => submitGuess(value)}
                     color='primary'
