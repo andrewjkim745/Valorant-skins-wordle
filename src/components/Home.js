@@ -98,7 +98,7 @@ export default function Home() {
 
     useEffect(() => {
         setDailyAnswer()
-    }, [updated])
+    }, [])
 
     const submitGuess = () => {
         console.log(answer)
