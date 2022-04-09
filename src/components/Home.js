@@ -43,7 +43,6 @@ export default function Home() {
     const clickSuggestion = (tech) => {
         setInputValue(tech)
         setSuggestions([])
-        setUpdated(!updated)
     }
 
     const images = importAll(require.context('../assets/SkinImages', false, /\.(png|jpe?g|svg)$/));
@@ -73,9 +72,6 @@ export default function Home() {
     }
 
     const renderHint = () => {
-        // if (!hint || correct) {
-        //     return null
-        // }
         if (boxes ) return null
         let slicedAnswer = answer.split(' ')
         console.log(slicedAnswer)
@@ -87,7 +83,7 @@ export default function Home() {
             let randomEnd = Math.floor(Math.random() * word.length) === randomIndex ? randomIndex + 1 : randomIndex + 1 > word.length - 1 ? randomIndex - 1 : randomIndex + 1
             let slicedWord = randomIndex > randomEnd ? word.slice(randomEnd, randomIndex) : word.slice(randomIndex, randomEnd)
             console.log(randomIndex, randomEnd, slicedWord)
-            emptyArray.fill(slicedWord, randomIndex, randomEnd)
+            emptyArray.fill(slicedWord.toUpperCase(), randomIndex, randomEnd)
             return emptyArray
                 
         })
@@ -105,6 +101,8 @@ export default function Home() {
     }, [updated])
 
     const submitGuess = () => {
+        console.log(answer)
+        console.log(value)
         (answer == value ? setCorrect(true) : setCorrect(false))
     }
 
@@ -145,7 +143,7 @@ export default function Home() {
                     color='primary'
                     text='submit'
                 />
-                {correct ? <h1>You got it correct!</h1> : correct === false ? <h1>Click to show hint</h1> : null}
+                {correct ? <h1>You got it correct!</h1> : correct === false ? <h1>Wrong!</h1> : null}
             </div>
         </div>
     )
