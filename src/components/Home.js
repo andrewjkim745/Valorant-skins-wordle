@@ -80,9 +80,17 @@ export default function Home() {
         console.log(slicedAnswer)
         slicedAnswer.forEach(word => {
             console.log('word', word)
+            console.log('word', word.length)
+            
+            let emptyArray = new Array(word.length)
+            
+            
             let randomIndex = Math.floor(Math.random() * word.length)
             let randomEnd = Math.floor(Math.random() * word.length) === randomIndex ? randomIndex + 1 : randomIndex + 1 > word.length - 1 ? randomIndex-1 : randomIndex+1
             let slicedWord = randomIndex > randomEnd ? word.slice(randomEnd, randomIndex) : word.slice(randomIndex, randomEnd)
+            console.log(randomIndex, randomEnd, slicedWord)
+            emptyArray.fill(slicedWord, randomIndex, randomEnd)
+            console.log(emptyArray)
             array.push(slicedWord)
         })
         return (
