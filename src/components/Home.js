@@ -24,7 +24,6 @@ export default function Home() {
             let nameArray = Object.keys(images)
             console.log('images object', images)
             let match = nameArray.filter(v => regex.test(v))
-            console.log(match)
             for (let i = 0; i < match.length; i++) {
                 let prices = ['1750', '3350', '5350']
                 let result1 = match[i].replace(/_|.png/g, ' ').slice(0, -1)
@@ -58,11 +57,11 @@ export default function Home() {
             return null
         }
         return (
-            <ul style={{ height: '100px', overflow: 'scroll', background: 'white' }}>
+            <ul className='px-1 pt-1'style={{ height: '200px', overflow: 'scroll', background: 'white', maxWidth: 220}}>
                 {suggestions.map(tech => {
                     return (
-                        <li onClick={() => clickSuggestion(tech.name)} style={{ listStyle: 'none' }}>
-                            <img style={{ maxWidth: 50 }} src={tech.src} />
+                        <li class='d-flex justify-content-center align-items-center mt-3' onClick={() => clickSuggestion(tech.name)} style={{ listStyle: 'none' }}>
+                            <img style={{maxWidth: 100 }} src={tech.src} />
                             {tech.name}
                         </li>
                     )
@@ -108,7 +107,7 @@ export default function Home() {
 
     return (
         <div className='w-100 vh-100 bg-dark'>
-            <h1 className='text-white text-center'>Valordle!</h1>
+            <h1 className='pt-3 text-white text-center'>Valordle!</h1>
             <h2 className='text-white text-center'>A Valorant Skins Wordle Game by <a href='https://github.com/andrewjkim745'>andrewjkim745</a></h2>
             <p className='text-white text-center'>Updates at 00:00 GMT-10</p>
             <div className='w-100 d-flex flex-column justify-content-center align-items-center'>
@@ -129,6 +128,8 @@ export default function Home() {
                 {boxes && hint ?
                 boxes.map(box=> { 
                     return (
+                        <>
+                        <h1></h1>
                         <div class='d-flex mb-4'>
                             {box.map(letter => {
                                 return (
@@ -136,7 +137,7 @@ export default function Home() {
                                 )
                             })}
                         </div>
-                    )     
+                        </>)     
                     }) : null}
                 <Button
                     onClick={() => submitGuess(value)}
