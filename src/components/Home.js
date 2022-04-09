@@ -6,27 +6,27 @@ import Button from './Button/Button';
 
 export default function Home() {
 
-    const [ updated, setUpdated ] = useState(false)
-    const [ value, setInputValue ] = useState('')
-    const [ answer, setAnswer ] = useState('')
-    const [ skinInfo, setSkinInfo ] = useState(true)
-    const [ hint, setShowHint ] = useState(false)
-    const [ suggestions, setSuggestions ] = useState('')
-    const [ correct, setCorrect ] = useState('')
+    const [updated, setUpdated] = useState(false)
+    const [value, setInputValue] = useState('')
+    const [answer, setAnswer] = useState('')
+    const [skinInfo, setSkinInfo] = useState(true)
+    const [hint, setShowHint] = useState(false)
+    const [suggestions, setSuggestions] = useState('')
+    const [correct, setCorrect] = useState('')
 
     function onTextChange(e) {
         const value = e.target.value
-        
+
         if (value.length > 0) {
-            const regex = new RegExp(`^${value}`, `i`);  
+            const regex = new RegExp(`^${value}`, `i`);
             let array = []
             let nameArray = Object.keys(images)
             console.log('images object', images)
             let match = nameArray.filter(v => regex.test(v))
             console.log(match)
-            for ( let i = 0; i < match.length; i++) {
+            for (let i = 0; i < match.length; i++) {
                 let prices = ['1750', '3350', '5350']
-                let result1 = match[i].replace(/_|.png/g, ' ').slice(0,-1)
+                let result1 = match[i].replace(/_|.png/g, ' ').slice(0, -1)
                 let obj = {}
                 obj.name = result1
                 obj.src = images[match[i]]
@@ -56,62 +56,66 @@ export default function Home() {
     const renderSuggestions = () => {
         if (suggestions.length === 0) {
             return null
-    }
-    return (
-        <ul style={{ height: '100px' , overflow: 'scroll', background: 'white' }}>
-            {suggestions.map(tech => {
-                return (
-                <li onClick={()=> clickSuggestion(tech.name)} style={{ listStyle: 'none'}}>
-                    <img style={{maxWidth: 50 }}src={tech.src}/>
-                    {tech.name}
-                </li>
-                )
-            })}
-        </ul>
-    )
+        }
+        return (
+            <ul style={{ height: '100px', overflow: 'scroll', background: 'white' }}>
+                {suggestions.map(tech => {
+                    return (
+                        <li onClick={() => clickSuggestion(tech.name)} style={{ listStyle: 'none' }}>
+                            <img style={{ maxWidth: 50 }} src={tech.src} />
+                            {tech.name}
+                        </li>
+                    )
+                })}
+            </ul>
+        )
     }
 
     const renderHint = () => {
         if (!hint || correct) {
-            return null 
+            return null
         }
         let slicedAnswer = answer.split(' ')
         let array = []
         console.log(slicedAnswer)
-        slicedAnswer.forEach(word => {
+        let hintArray = slicedAnswer.map(word => {
             console.log('word', word)
             console.log('word', word.length)
-            
-            let emptyArray = new Array(word.length)
-            
-            
+
+            let emptyArray = new Array(word.length).fill('')
             let randomIndex = Math.floor(Math.random() * word.length)
-            let randomEnd = Math.floor(Math.random() * word.length) === randomIndex ? randomIndex + 1 : randomIndex + 1 > word.length - 1 ? randomIndex-1 : randomIndex+1
+            let randomEnd = Math.floor(Math.random() * word.length) === randomIndex ? randomIndex + 1 : randomIndex + 1 > word.length - 1 ? randomIndex - 1 : randomIndex + 1
             let slicedWord = randomIndex > randomEnd ? word.slice(randomEnd, randomIndex) : word.slice(randomIndex, randomEnd)
             console.log(randomIndex, randomEnd, slicedWord)
             emptyArray.fill(slicedWord, randomIndex, randomEnd)
-            console.log(emptyArray)
-            array.push(slicedWord)
+            return emptyArray
+                
         })
+        console.log(hintArray)
         return (
+            
             <div>
-            <p className='text-white'>Skin has {array.length} words in it</p>
-            {array.map((letter, index) => {
+            <p className='text-white'>Skin has {hintArray.length} words in it</p>
+            <div class='d-flex'>
+            {hintArray.map(hint => {
                 return (
-                    <p className='text-white'>Word {index+1} has the letter {letter} </p>
+                hint.map(letter => {
+                    return <div className='box'>{letter}</div>
+                })
                 )
             })}
+            </div>
             </div>
         )
     }
 
     const setDailyAnswer = () => {
         let nameArray = Object.keys(images)
-        setAnswer(nameArray[Math.floor(Math.random() * nameArray.length)].replace(/_|.png/g, ' ').slice(0,-1))
+        setAnswer(nameArray[Math.floor(Math.random() * nameArray.length)].replace(/_|.png/g, ' ').slice(0, -1))
     }
 
     useEffect(() => {
-            setDailyAnswer()
+        setDailyAnswer()
     }, [updated])
 
     const submitGuess = () => {
@@ -140,9 +144,9 @@ export default function Home() {
                 />
                 {renderHint()}
                 <Button
-                onClick={()=> submitGuess(value)}
-                color='primary'
-                text='submit'
+                    onClick={() => submitGuess(value)}
+                    color='primary'
+                    text='submit'
                 />
                 {correct ? <h1>You got it correct!</h1> : correct === false ? <h1>Click to show hint</h1> : null}
             </div>
