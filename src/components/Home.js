@@ -57,11 +57,11 @@ export default function Home() {
             return null
         }
         return (
-            <ul className='px-1 pt-1'style={{ height: '200px', overflow: 'scroll', background: 'white', maxWidth: 220}}>
+            <ul className='px-1 pt-1' style={{ height: '250px', overflow: 'scroll', background: 'white', maxWidth: 220 }}>
                 {suggestions.map(tech => {
                     return (
                         <li class='d-flex justify-content-center align-items-center mt-3' onClick={() => clickSuggestion(tech.name)} style={{ listStyle: 'none' }}>
-                            <img style={{maxWidth: 100 }} src={tech.src} />
+                            <img style={{ maxWidth: 80 }} src={tech.src} />
                             {tech.name}
                         </li>
                     )
@@ -71,7 +71,7 @@ export default function Home() {
     }
 
     const renderHint = () => {
-        if (boxes ) return null
+        if (boxes) return null
         let slicedAnswer = answer.split(' ')
         console.log(slicedAnswer)
         let hintArray = slicedAnswer.map(word => {
@@ -84,7 +84,7 @@ export default function Home() {
             console.log(randomIndex, randomEnd, slicedWord)
             emptyArray.fill(slicedWord.toUpperCase(), randomIndex, randomEnd)
             return emptyArray
-                
+
         })
         console.log(hintArray)
         setBoxes(hintArray)
@@ -102,7 +102,16 @@ export default function Home() {
     const submitGuess = () => {
         console.log(answer)
         console.log(value)
-        (answer == value ? setCorrect(true) : setCorrect(false))
+            (answer == value ? setCorrect(true) : setCorrect(false))
+    }
+
+    const renderSkinHint = () => {
+        let skinLetter = answer[0]
+        return (
+            <>
+            {skinInfo && <h1>Skin starts with {skinLetter}</h1>}
+            </>
+        )
     }
 
     return (
@@ -120,25 +129,26 @@ export default function Home() {
                     onClick={() => setSkinInfo(!skinInfo)}
                     text={`Skin info ${skinInfo ? 'on' : 'off'}`}
                 />
+                {renderSkinHint()}
                 <Button
                     color='warning'
-                    onClick={() => {setShowHint(!hint); renderHint();}}
+                    onClick={() => { setShowHint(!hint); renderHint(); }}
                     text={`Show hint ${hint ? 'on' : 'off'}`}
                 />
                 {boxes && hint ?
-                boxes.map(box=> { 
-                    return (
-                        <>
-                        <h1></h1>
-                        <div class='d-flex mb-4'>
-                            {box.map(letter => {
-                                return (
-                                    <div className='box'>{letter}</div>
-                                )
-                            })}
-                        </div>
-                        </>)     
-                    }) : null}
+                    boxes.map(box => {
+                        return (
+                            <>
+                                <div class='d-flex mb-4'>
+                                    {box.map(letter => {
+                                        return (
+                                            <div className='box'>{letter}</div>
+                                        )
+                                    })}
+                                </div>
+                            </>
+                        )
+                    }): null}
                 <Button
                     onClick={() => submitGuess(value)}
                     color='primary'
