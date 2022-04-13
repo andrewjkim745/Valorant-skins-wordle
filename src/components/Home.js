@@ -9,7 +9,7 @@ export default function Home() {
     const [updated, setUpdated] = useState(false)
     const [value, setInputValue] = useState('')
     const [answer, setAnswer] = useState('')
-    const [skinInfo, setSkinInfo] = useState(true)
+    const [skinInfo, setSkinInfo] = useState(false)
     const [hint, setShowHint] = useState(false)
     const [boxes, setBoxes] = useState('')
     const [suggestions, setSuggestions] = useState('')
@@ -33,7 +33,6 @@ export default function Home() {
                 obj.price = prices[Math.floor(Math.random() * prices.length)];
                 array.push(obj)
             }
-            console.log(array)
             setSuggestions(array)
         }
         setInputValue(value)
@@ -95,14 +94,20 @@ export default function Home() {
         setAnswer(nameArray[Math.floor(Math.random() * nameArray.length)].replace(/_|.png/g, ' ').slice(0, -1))
     }
 
+    
+
     useEffect(() => {
         setDailyAnswer()
+        
     }, [])
 
     const submitGuess = () => {
         console.log(answer)
         console.log(value)
             (answer == value ? setCorrect(true) : setCorrect(false))
+            if (setCorrect(true)) { 
+                alert('You got it correct! Thanks for playing and come back at')
+            }
     }
 
     const renderSkinHint = () => {
