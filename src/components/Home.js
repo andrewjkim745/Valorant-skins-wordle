@@ -102,8 +102,6 @@ export default function Home() {
     }, [])
 
     const submitGuess = () => {
-        console.log(answer)
-        console.log(value)
             (answer == value ? setCorrect(true) : setCorrect(false))
             if (setCorrect(true)) { 
                 alert('You got it correct! Thanks for playing and come back at')
