@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { MDBInput } from 'mdb-react-ui-kit';
 import Dropdown from './Dropdown/Dropdown';
 import Button from './Button/Button';
+import Modal from './modal'
 
 
 export default function Home() {
@@ -157,6 +158,7 @@ export default function Home() {
                     color='primary'
                     text='submit'
                 />
+                <Modal/>
                 {correct ? <h1>You got it correct!</h1> : correct === false ? <h1>Wrong!</h1> : null}
             </div>
         </div>
