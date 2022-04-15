@@ -158,7 +158,9 @@ export default function Home() {
                     color='primary'
                     text='submit'
                 />
-                <Modal/>
+                <Modal
+                SubmitGuess={submitGuess(value)}
+                />
                 {correct ? <h1>You got it correct!</h1> : correct === false ? <h1>Wrong!</h1> : null}
             </div>
         </div>
