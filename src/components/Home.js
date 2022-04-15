@@ -18,7 +18,6 @@ export default function Home() {
 
     function onTextChange(e) {
         const value = e.target.value
-
         if (value.length > 0) {
             const regex = new RegExp(`^${value}`, `i`);
             let array = []
