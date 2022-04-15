@@ -9,14 +9,14 @@ import { MDBBtn,
   MDBModalFooter,
 } from 'mdb-react-ui-kit';
 
-export default function Modal() {
+export default function ModalButton({ SubmitGuess}) {
   const [centredModal, setCentredModal] = useState(false);
 
   const toggleShow = () => setCentredModal(!centredModal);
 
   return (
     <>
-      <MDBBtn onClick={toggleShow}>Vertically centered modal</MDBBtn>
+      <MDBBtn onClick={{toggleShow, SubmitGuess}}>Submit</MDBBtn>
 
       <MDBModal tabIndex='-1' show={centredModal} setShow={setCentredModal}>
         <MDBModalDialog centered>
