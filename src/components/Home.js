@@ -112,7 +112,7 @@ export default function Home() {
         let skinLetter = answer[0]
         return (
             <>
-            {skinInfo && <h1>Skin starts with {skinLetter}</h1>}
+            {skinInfo && <h1>Skin collection starts with {skinLetter}</h1>}
             </>
         )
     }
